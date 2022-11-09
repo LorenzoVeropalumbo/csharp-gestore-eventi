@@ -4,12 +4,13 @@ Console.Write("Inserisci il numero di posti totali: ");
 int numeroEventi = Convert.ToInt32(Console.ReadLine());
 int i = 0;
 
-bool loop = true;
-while (loop)
+bool mainloop = true;
+while (mainloop)
 {
     try
     {
         Evento evento = RegistraEvento(programmaEventi,ref i);
+        // Funzioni per chiedere e disdire prenotazioni
         //Console.WriteLine(evento.ToString());
         //ChiediPrenotazioni(evento);
         //ChiediDiDisdire(evento);
@@ -29,7 +30,8 @@ while (loop)
         string? dateRicerca = Console.ReadLine();
         List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
         Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
-        loop = false;
+        programmaEventi.RimuoviTuttiGliEventi();
+        mainloop = false;
     }
 }
 
