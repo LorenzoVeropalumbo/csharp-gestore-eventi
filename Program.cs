@@ -21,11 +21,14 @@ while (loop)
 
     if(i == numeroEventi)
     {
+        Console.WriteLine();
         Console.WriteLine("Il numero di evento nel programma è: {0}", numeroEventi);
         Console.WriteLine("Ecco il tuo programma eventi:");
         Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
-        Console.WriteLine("Inserisci ");
-        Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
+        Console.Write("Inserisci una data per sapere che eventi ci saranno (gg/mm/yyyy): ");
+        string? dateRicerca = Console.ReadLine();
+        List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
+        Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
         loop = false;
     }
 }
@@ -61,8 +64,9 @@ Evento RegistraEvento(ProgrammaEventi programmaEventi,ref int i)
     Evento evento = new Evento(titolo, Convert.ToDateTime(date), posti);
     programmaEventi.AggiungiEvento(evento);
     i++;
-    return evento;
     Console.WriteLine();
+    return evento;
+    
 }
 
 void ChiediPrenotazioni(Evento evento)
