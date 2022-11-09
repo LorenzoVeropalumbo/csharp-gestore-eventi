@@ -1,6 +1,6 @@
 ﻿
 ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
-Console.Write("Inserisci il numero di posti totali: ");
+Console.Write("Inserisci il numero di eventi da inserire: ");
 int numeroEventi = Convert.ToInt32(Console.ReadLine());
 int i = 0;
 
@@ -30,7 +30,39 @@ while (mainloop)
         string? dateRicerca = Console.ReadLine();
         List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
         Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
-        programmaEventi.RimuoviTuttiGliEventi();
+        mainloop = false;
+    }
+}
+
+Console.Write("Inserisci il numero di conferenze da inserire: ");
+int numeroEventi1 = Convert.ToInt32(Console.ReadLine());
+int j = 0;
+
+bool mainloop1 = true;
+while (mainloop1)
+{
+    try
+    {
+        Evento conferenza = RegistraConferenza(programmaEventi, ref j);
+
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+
+    if (j == numeroEventi1)
+    {
+        Console.WriteLine("--- BONUS -----");
+        Console.WriteLine();
+        Console.WriteLine("Aggiungiamo anche una conferenza!");
+        Console.WriteLine("Il numero di conferenze nel programma è: {0}", numeroEventi);
+        Console.WriteLine("Ecco il tuo programma conferenze:");
+        Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
+        Console.Write("Inserisci una data per sapere che conferenze ci saranno (gg/mm/yyyy): ");
+        string? dateRicerca = Console.ReadLine();
+        List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
+        Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
         mainloop = false;
     }
 }
@@ -54,7 +86,7 @@ ProgrammaEventi RegistraProgrammaEventi()
 Evento RegistraEvento(ProgrammaEventi programmaEventi,ref int i)
 {
     Console.WriteLine();
-    Console.Write("Inserisci il nome {0}° dell'evento: ", i+1);
+    Console.Write("Inserisci il nome del {0}° evento: ", i+1);
     string? titolo = Console.ReadLine();
 
     Console.Write("Inserisci la data dell'evento (gg/mm/yyyy): ");
@@ -69,6 +101,33 @@ Evento RegistraEvento(ProgrammaEventi programmaEventi,ref int i)
     Console.WriteLine();
     return evento;
     
+}
+
+Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int j)
+{
+    Console.WriteLine();
+    Console.Write("Inserisci il nome della {0}° conferenza: ", j + 1);
+    string? titolo = Console.ReadLine();
+
+    Console.Write("Inserisci la data della conferenza (gg/mm/yyyy): ");
+    string? date = Console.ReadLine();
+
+    Console.Write("Inserisci il numero di posti per la conferenza: ");
+    int posti = Convert.ToInt32(Console.ReadLine());
+
+    Console.Write("Inserisci il relatore della conferenza: ");
+    string? relatore = Console.ReadLine();
+
+    Console.Write("Inserisci il prezzo del biglietto della conferenza: ");
+    double prezzo = Convert.ToDouble(Console.ReadLine());
+
+    Evento evento = new Conferenza(titolo, Convert.ToDateTime(date), posti, relatore, prezzo);
+
+    programmaEventi.AggiungiEvento(evento);
+    j++;
+    Console.WriteLine();
+    return evento;
+
 }
 
 void ChiediPrenotazioni(Evento evento)

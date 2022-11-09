@@ -32,9 +32,10 @@
     public string StampaEventiLista(List<Evento> eventiDaStampare)
     {
         string strigaDaTornare = "";
+        
         foreach (Evento evento in eventiDaStampare)
         {
-            strigaDaTornare = evento.ToString() + "\n";
+            strigaDaTornare += "\t" + evento.ToString() + "\n";
         }
 
         return strigaDaTornare;
