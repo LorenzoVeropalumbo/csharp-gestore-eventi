@@ -18,7 +18,7 @@ static class GestioneFile
 
     public static void ImportFile(string Filename, ProgrammaEventi programmaEventi)
     {
-        StreamReader stream = File.OpenText("C:\\Users\\loren\\source\\repos\\.Net-course\\csharp-gestore-eventi\\ListaEventi.txt");
+        StreamReader stream = File.OpenText("C:\\Users\\loren\\source\\repos\\.Net-course\\csharp-gestore-eventi\\ListaEventi.csv");
         stream.ReadLine();
         while (!stream.EndOfStream)
         {
