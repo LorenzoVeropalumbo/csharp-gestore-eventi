@@ -121,7 +121,6 @@ void MilestoneBonus(ProgrammaEventi programmaEventi)
                 List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
                 Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
                 mainloop = false;
-                i++;
             }
             else
             {
@@ -148,7 +147,7 @@ void MilestoneBonusFile(ProgrammaEventi programmaEventi)
     else
     {
         GestioneFile.ExportFile("exportFile", programmaEventi);
-        programmaEventi.StampaTuttiGliEventi();
+        Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
     }
     
 }
