@@ -26,6 +26,7 @@ while (WorkingProgram)
     }
 
 }
+
 void Milestone1()
 {
     bool mainloop = true;
@@ -189,7 +190,7 @@ void ChiediPrenotazioni(Evento evento)
 {
     Console.Write("Quanti posti desideri prenotare? ");
     int postiDaPrenotare = Convert.ToInt32(Console.ReadLine());
-    evento.PrenotaPosti(evento, postiDaPrenotare);
+    evento.PrenotaPosti(postiDaPrenotare);
     StampaPosti(evento);
 }
 
@@ -209,7 +210,7 @@ void ChiediDiDisdire(Evento evento)
     {
         Console.Write("Indica il numero di posti da disdire: ");
         int postiDaDisdire = Convert.ToInt32(Console.ReadLine());
-        evento.DisdiciPosti(evento, postiDaDisdire);
+        evento.DisdiciPosti(postiDaDisdire);
         StampaPosti(evento);
     }
     else if (vuoiDisdire == "no")

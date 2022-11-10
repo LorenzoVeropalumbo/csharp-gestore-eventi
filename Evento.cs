@@ -13,11 +13,12 @@ public class Evento
     }
 
     // Variabili per le properties
-    private string _titolo;
-    private DateTime _data;
-    private int _numeroDiPosti;
+   
+  
+   
 
     // Variabili per il costruttore
+    private string _titolo;
     public string Titolo { 
         get
         {
@@ -34,7 +35,8 @@ public class Evento
                 _titolo = value;
             }
         } 
-    }
+    } 
+    private DateTime _data;
     public DateTime Data { 
         get 
         {
@@ -51,7 +53,8 @@ public class Evento
                 _data = value;
             }
         } 
-    }
+    } 
+    private int _numeroDiPosti;
     public int NumeroDiPosti { 
         get
         {
@@ -73,41 +76,41 @@ public class Evento
     public int NumeroPostiDiponibili { get; set; }
 
     // FUNZIONI
-    public void PrenotaPosti(Evento evento, int postiDaPrenotare)
+    public void PrenotaPosti(int postiDaPrenotare)
     {
-        if(DateTime.Now.CompareTo(evento.Data) > 0)
+        if(DateTime.Now.CompareTo(Data) > 0)
         {
             throw new Exception("l' evento è scaduto");
         }
-        else if (evento.NumeroDiPosti < postiDaPrenotare)
+        else if (NumeroDiPosti < postiDaPrenotare)
         {
             throw new Exception("numero di posti della sala insufficente");
         }
-        else if (evento.NumeroPostiDiponibili < postiDaPrenotare)
+        else if (NumeroPostiDiponibili < postiDaPrenotare)
         {
             throw new Exception("numero di posti disponibile insufficente");
         }
         else
         {
-            evento.NumeroPostiPrenotati += postiDaPrenotare;
-            evento.NumeroPostiDiponibili -= postiDaPrenotare;
+            NumeroPostiPrenotati += postiDaPrenotare;
+            NumeroPostiDiponibili -= postiDaPrenotare;
         }
     }
 
-    public void DisdiciPosti(Evento evento, int postiDaDisdire)
+    public void DisdiciPosti(int postiDaDisdire)
     {
-        if (evento.NumeroPostiPrenotati < postiDaDisdire)
+        if (NumeroPostiPrenotati < postiDaDisdire)
         {
             throw new Exception("numero di posti da disdire insufficente");
         }
-        else if (DateTime.Now.CompareTo(evento.Data) > 0)
+        else if (DateTime.Now.CompareTo(Data) > 0)
         {
             throw new Exception("l' evento è scaduto");
         }
         else
         {
-            evento.NumeroPostiPrenotati -= postiDaDisdire;
-            evento.NumeroPostiDiponibili += postiDaDisdire;
+            NumeroPostiPrenotati -= postiDaDisdire;
+            NumeroPostiDiponibili += postiDaDisdire;
         }
     }
 
