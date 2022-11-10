@@ -1,77 +1,124 @@
 ﻿
-ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
-Console.Write("Inserisci il numero di eventi da inserire: ");
-int numeroEventi = Convert.ToInt32(Console.ReadLine());
-int i = 0;
+using System.Security.Cryptography.X509Certificates;
+bool WorkingProgram = true;
 
-bool mainloop = true;
-while (mainloop)
+while (WorkingProgram)
 {
-    try
+    Console.WriteLine("Inserisci un opzione");
+    Console.WriteLine("1) Milestone 1");
+    Console.WriteLine("2) Milestone 3");
+    Console.WriteLine("3) Milestone bonus");
+    int response = Convert.ToInt32(Console.ReadLine());
+
+    switch (response)
     {
-        Evento evento = RegistraEvento(programmaEventi,ref i);
-        // Funzioni per chiedere e disdire prenotazioni
-        //Console.WriteLine(evento.ToString());
-        //ChiediPrenotazioni(evento);
-        //ChiediDiDisdire(evento);
-    }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
+        case 1:
+            Milestone1();
+            break;
+        case 2:
+            Milestone3();
+            break;
+        case 3:
+            MilestoneBonus();
+            break;
+        default:
+            break;
     }
 
-    if(i == numeroEventi)
+}
+void Milestone1()
+{
+    bool mainloop = true;
+    while (mainloop)
     {
-        Console.WriteLine();
-        Console.WriteLine("Il numero di evento nel programma è: {0}", numeroEventi);
-        Console.WriteLine("Ecco il tuo programma eventi:");
-        Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
-        Console.Write("Inserisci una data per sapere che eventi ci saranno (gg/mm/yyyy): ");
-        string? dateRicerca = Console.ReadLine();
-        List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
-        Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
-        mainloop = false;
+        try
+        {
+            int i = 0;
+            Evento evento = RegistraEvento(null, ref i);
+            Console.WriteLine(evento.ToString());
+            ChiediPrenotazioni(evento);
+            ChiediDiDisdire(evento);
+            mainloop = false;
+        }
+        catch(Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
+
 }
 
-Console.Write("Inserisci il numero di conferenze da inserire: ");
-int numeroEventi1 = Convert.ToInt32(Console.ReadLine());
-int j = 0;
-
-bool mainloop1 = true;
-while (mainloop1)
+void Milestone3()
 {
-    try
+    int i = 0;
+    ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
+    int numeroEventi = ChiedoEventiNumero("eventi");
+    // Funzioni per chiedere e disdire prenotazioni
+    bool mainloop = true;
+    while (mainloop)
     {
-        Evento conferenza = RegistraConferenza(programmaEventi, ref j);
+        try
+        {
+            Evento evento = RegistraEvento(programmaEventi, ref i);
 
+            if (i == numeroEventi)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Il numero di evento nel programma è: {0}", numeroEventi);
+                Console.WriteLine("Ecco il tuo programma eventi:");
+                Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
+                Console.Write("Inserisci una data per sapere che eventi ci saranno (gg/mm/yyyy): ");
+                string? dateRicerca = Console.ReadLine();
+                if (!DateTime.TryParse(dateRicerca, out DateTime time))
+                {
+                    throw new Exception("inserisci una data valida");
+                }
+                List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
+                Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
+                mainloop = false;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
     }
-    catch (Exception e)
-    {
-        Console.WriteLine(e.Message);
-    }
-
-    if (j == numeroEventi1)
-    {
-        Console.WriteLine("--- BONUS -----");
-        Console.WriteLine();
-        Console.WriteLine("Aggiungiamo anche una conferenza!");
-        Console.WriteLine("Il numero di conferenze nel programma è: {0}", numeroEventi);
-        Console.WriteLine("Ecco il tuo programma conferenze:");
-        Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
-        Console.Write("Inserisci una data per sapere che conferenze ci saranno (gg/mm/yyyy): ");
-        string? dateRicerca = Console.ReadLine();
-        List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
-        Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
-        mainloop = false;
-    }
+    
 }
 
+void MilestoneBonus()
+{
+    ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
+    int i = 0;
+    int numeroEventi = ChiedoEventiNumero("conferenze");
+ 
+    bool mainloop = true;
+    while (mainloop)
+    {
+        try
+        {
 
-
-
-
-
+            if (i == numeroEventi)
+            {
+                Console.WriteLine("--- BONUS -----");
+                Console.WriteLine();
+                Console.WriteLine("Aggiungiamo anche una conferenza!");
+                Console.WriteLine("Il numero di conferenze nel programma è: {0}", numeroEventi);
+                Console.WriteLine("Ecco il tuo programma conferenze:");
+                Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
+                Console.Write("Inserisci una data per sapere che conferenze ci saranno (gg/mm/yyyy): ");
+                string? dateRicerca = Console.ReadLine();
+                List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
+                Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
+                mainloop = false;        
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+}
 
 //METODI
 ProgrammaEventi RegistraProgrammaEventi()
@@ -83,7 +130,7 @@ ProgrammaEventi RegistraProgrammaEventi()
     return programmaEventi;
 }
 
-Evento RegistraEvento(ProgrammaEventi programmaEventi,ref int i)
+Evento RegistraEvento(ProgrammaEventi programmaEventi, ref int i)
 {
     Console.WriteLine();
     Console.Write("Inserisci il nome del {0}° evento: ", i+1);
@@ -91,22 +138,30 @@ Evento RegistraEvento(ProgrammaEventi programmaEventi,ref int i)
 
     Console.Write("Inserisci la data dell'evento (gg/mm/yyyy): ");
     string? date = Console.ReadLine();
+    if (!DateTime.TryParse(date, out DateTime time))
+    {
+        throw new Exception("inserisci un valore valido");
+    }
 
     Console.Write("Inserisci il numero di posti totali: ");
     int posti = Convert.ToInt32(Console.ReadLine());
 
     Evento evento = new Evento(titolo, Convert.ToDateTime(date), posti);
-    programmaEventi.AggiungiEvento(evento);
-    i++;
+
+    if (programmaEventi != null)
+    {
+        programmaEventi.AggiungiEvento(evento);
+        i++;   
+    }
+
     Console.WriteLine();
-    return evento;
-    
+    return evento;  
 }
 
-Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int j)
+Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int i)
 {
     Console.WriteLine();
-    Console.Write("Inserisci il nome della {0}° conferenza: ", j + 1);
+    Console.Write("Inserisci il nome della {0}° conferenza: ", i + 1);
     string? titolo = Console.ReadLine();
 
     Console.Write("Inserisci la data della conferenza (gg/mm/yyyy): ");
@@ -124,7 +179,7 @@ Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int j)
     Evento evento = new Conferenza(titolo, Convert.ToDateTime(date), posti, relatore, prezzo);
 
     programmaEventi.AggiungiEvento(evento);
-    j++;
+    i++;
     Console.WriteLine();
     return evento;
 
@@ -166,4 +221,32 @@ void ChiediDiDisdire(Evento evento)
     {
         throw new Exception("inserisci un valore valido");
     }
+}
+
+int ChiedoEventiNumero(string tipo)
+{
+    int numeroEventi = 0;
+    bool firstloop = true;
+    while (firstloop)
+    {
+        try
+        {
+            Console.Write("Inserisci il numero di {0} da inserire: ", tipo);
+            if (!Int32.TryParse(Console.ReadLine(), out int result))
+            {
+                throw new Exception("inserire un numero valido");
+            }
+            else
+            {
+                numeroEventi = result;
+                firstloop = false;
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
+        }
+    }
+
+    return numeroEventi;
 }

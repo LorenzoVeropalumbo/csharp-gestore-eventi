@@ -61,7 +61,7 @@ public class Evento
         {
             if (value <= 0)
             {
-                throw new Exception("devi inserire un valore maggiore di 0");
+                throw new Exception("devi inserire un valore valido");
             }
             else
             {
