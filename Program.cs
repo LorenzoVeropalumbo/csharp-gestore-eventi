@@ -35,7 +35,7 @@ void Milestone1()
         try
         {
             int i = 0;
-            Evento evento = RegistraEvento(null, ref i);
+            Evento evento = RegistraEvento(null, i);
             Console.WriteLine(evento.ToString());
             ChiediPrenotazioni(evento);
             ChiediDiDisdire(evento);
@@ -60,7 +60,8 @@ void Milestone3()
     {
         try
         {
-            Evento evento = RegistraEvento(programmaEventi, ref i);
+            Evento evento = RegistraEvento(programmaEventi, i);
+            i++;
 
             if (i == numeroEventi)
             {
@@ -98,6 +99,8 @@ void MilestoneBonus()
     {
         try
         {
+            Evento evento = RegistraConferenza(programmaEventi, i);
+            i++;
 
             if (i == numeroEventi)
             {
@@ -111,7 +114,8 @@ void MilestoneBonus()
                 string? dateRicerca = Console.ReadLine();
                 List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
                 Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
-                mainloop = false;        
+                mainloop = false;
+                i++;
             }
         }
         catch (Exception e)
@@ -131,7 +135,7 @@ ProgrammaEventi RegistraProgrammaEventi()
     return programmaEventi;
 }
 
-Evento RegistraEvento(ProgrammaEventi programmaEventi, ref int i)
+Evento RegistraEvento(ProgrammaEventi programmaEventi,int i)
 {
     Console.WriteLine();
     Console.Write("Inserisci il nome del {0}° evento: ", i+1);
@@ -151,15 +155,14 @@ Evento RegistraEvento(ProgrammaEventi programmaEventi, ref int i)
 
     if (programmaEventi != null)
     {
-        programmaEventi.AggiungiEvento(evento);
-        i++;   
+        programmaEventi.AggiungiEvento(evento);         
     }
 
     Console.WriteLine();
     return evento;  
 }
 
-Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int i)
+Evento RegistraConferenza(ProgrammaEventi programmaEventi, int i)
 {
     Console.WriteLine();
     Console.Write("Inserisci il nome della {0}° conferenza: ", i + 1);
@@ -180,7 +183,6 @@ Evento RegistraConferenza(ProgrammaEventi programmaEventi, ref int i)
     Evento evento = new Conferenza(titolo, Convert.ToDateTime(date), posti, relatore, prezzo);
 
     programmaEventi.AggiungiEvento(evento);
-    i++;
     Console.WriteLine();
     return evento;
 
