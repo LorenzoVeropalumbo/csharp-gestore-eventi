@@ -28,28 +28,24 @@ static class GestioneFile
             {
                 if (info[0] == "")
                 {
-                    throw new csharpGenstioneEventiExeption("il nome non è valido");
                     return;
                 }
                 string titolo = info[0];              
 
                 if (!DateTime.TryParse(info[1], out DateTime time))
                 {
-                    throw new csharpGenstioneEventiExeption("inserisci un valore valido");
                     return;
                 }
                 DateTime data = Convert.ToDateTime(info[1]);
 
                 if (!Int32.TryParse(info[2], out int post))
                 {
-                    throw new csharpGenstioneEventiExeption("inserisci un valore valido");
                     return;
                 }
                 int posti = Convert.ToInt32(info[2]);
                 
                 if (!Int32.TryParse(info[3], out int postpre))
                 {
-                    throw new csharpGenstioneEventiExeption("inserisci un valore valido");
                     return;
                 }
                 int postiPrenotati = Convert.ToInt32(info[3]);
