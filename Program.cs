@@ -41,7 +41,7 @@ void Milestone1()
             ChiediDiDisdire(evento);
             mainloop = false;
         }
-        catch(Exception e)
+        catch(csharpGenstioneEventiExeption e)
         {
             Console.WriteLine(e.Message);
         }
@@ -70,7 +70,7 @@ void Milestone3()
                 string? dateRicerca = Console.ReadLine();
                 if (!DateTime.TryParse(dateRicerca, out DateTime time))
                 {
-                    throw new Exception("inserisci una data valida");
+                    throw new csharpGenstioneEventiExeption("inserisci una data valida");
                 }
                 List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
                 Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
@@ -83,7 +83,7 @@ void Milestone3()
                 i++;
             }
         }
-        catch (Exception e)
+        catch (csharpGenstioneEventiExeption e)
         {
             Console.WriteLine(e.Message);
         }
@@ -125,7 +125,7 @@ void MilestoneBonus()
             }
 
         }
-        catch (Exception e)
+        catch (csharpGenstioneEventiExeption e)
         {
             Console.WriteLine(e.Message);
         }
@@ -152,7 +152,7 @@ Evento RegistraEvento(ProgrammaEventi programmaEventi,int i)
     string? date = Console.ReadLine();
     if (!DateTime.TryParse(date, out DateTime time))
     {
-        throw new Exception("inserisci un valore valido");
+        throw new csharpGenstioneEventiExeption("inserisci un valore valido");
     }
 
     Console.Write("Inserisci il numero di posti totali: ");
@@ -229,7 +229,7 @@ void ChiediDiDisdire(Evento evento)
     }
     else
     {
-        throw new Exception("inserisci un valore valido");
+        throw new csharpGenstioneEventiExeption("inserisci un valore valido");
     }
 }
 
@@ -244,7 +244,7 @@ int ChiedoEventiNumero(string tipo)
             Console.Write("Inserisci il numero di {0} da inserire: ", tipo);
             if (!Int32.TryParse(Console.ReadLine(), out int result))
             {
-                throw new Exception("inserire un numero valido");
+                throw new csharpGenstioneEventiExeption("inserire un numero valido");
             }
             else
             {
@@ -252,7 +252,7 @@ int ChiedoEventiNumero(string tipo)
                 firstloop = false;
             }
         }
-        catch (Exception e)
+        catch (csharpGenstioneEventiExeption e)
         {
             Console.WriteLine(e.Message);
         }

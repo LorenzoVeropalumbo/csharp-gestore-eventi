@@ -28,7 +28,7 @@ public class Evento
         {
             if (value == "")
             {
-                throw new Exception("devi inserire un titolo valido");
+                throw new csharpGenstioneEventiExeption("devi inserire un titolo valido");
             }
             else
             {
@@ -46,7 +46,7 @@ public class Evento
         {
             if (DateTime.Now.CompareTo(value) > 0)
             {
-                throw new Exception("devi inserire una data corretta");
+                throw new csharpGenstioneEventiExeption("devi inserire una data corretta");
             }
             else
             {
@@ -64,7 +64,7 @@ public class Evento
         {
             if (value <= 0)
             {
-                throw new Exception("devi inserire un valore valido");
+                throw new csharpGenstioneEventiExeption("devi inserire un valore valido");
             }
             else
             {
@@ -80,15 +80,15 @@ public class Evento
     {
         if(DateTime.Now.CompareTo(Data) > 0)
         {
-            throw new Exception("l' evento è scaduto");
+            throw new csharpGenstioneEventiExeption("l' evento è scaduto");
         }
         else if (NumeroDiPosti < postiDaPrenotare)
         {
-            throw new Exception("numero di posti della sala insufficente");
+            throw new csharpGenstioneEventiExeption("numero di posti della sala insufficente");
         }
         else if (NumeroPostiDiponibili < postiDaPrenotare)
         {
-            throw new Exception("numero di posti disponibile insufficente");
+            throw new csharpGenstioneEventiExeption("numero di posti disponibile insufficente");
         }
         else
         {
@@ -101,11 +101,11 @@ public class Evento
     {
         if (NumeroPostiPrenotati < postiDaDisdire)
         {
-            throw new Exception("numero di posti da disdire insufficente");
+            throw new csharpGenstioneEventiExeption("numero di posti da disdire insufficente");
         }
         else if (DateTime.Now.CompareTo(Data) > 0)
         {
-            throw new Exception("l' evento è scaduto");
+            throw new csharpGenstioneEventiExeption("l' evento è scaduto");
         }
         else
         {
