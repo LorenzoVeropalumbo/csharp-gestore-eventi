@@ -1,14 +1,16 @@
 ﻿
 using System.Security.Cryptography.X509Certificates;
 bool WorkingProgram = true;
-
+ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
 while (WorkingProgram)
 {
     Console.WriteLine("Inserisci un opzione");
     Console.WriteLine("1) Milestone 1");
     Console.WriteLine("2) Milestone 3");
     Console.WriteLine("3) Milestone bonus");
+    Console.WriteLine("4) Milestone bonus File");
     int response = Convert.ToInt32(Console.ReadLine());
+    
 
     switch (response)
     {
@@ -16,10 +18,14 @@ while (WorkingProgram)
             Milestone1();
             break;
         case 2:
-            Milestone3();
+            
+            Milestone3(programmaEventi);
             break;
         case 3:
-            MilestoneBonus();
+            MilestoneBonus(programmaEventi);
+            break;
+        case 4:
+            MilestoneBonusFile(programmaEventi);
             break;
         default:
             break;
@@ -49,10 +55,10 @@ void Milestone1()
 
 }
 
-void Milestone3()
+void Milestone3(ProgrammaEventi programmaEventi)
 {
     int i = 0;
-    ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
+
     int numeroEventi = ChiedoEventiNumero("eventi");
     // Funzioni per chiedere e disdire prenotazioni
     bool mainloop = true;
@@ -91,9 +97,8 @@ void Milestone3()
     
 }
 
-void MilestoneBonus()
+void MilestoneBonus(ProgrammaEventi programmaEventi)
 {
-    ProgrammaEventi programmaEventi = RegistraProgrammaEventi();
     int i = 0;
     int numeroEventi = ChiedoEventiNumero("conferenze");
  
@@ -130,6 +135,22 @@ void MilestoneBonus()
             Console.WriteLine(e.Message);
         }
     }
+}
+
+void MilestoneBonusFile(ProgrammaEventi programmaEventi)
+{
+    Console.WriteLine("Seleziona 1 per l'import o 2 per l'export");
+    int response = Convert.ToInt32(Console.ReadLine());
+    if (response == 1)
+    {
+        GestioneFile.ImportFile("exportFile", programmaEventi);
+    }
+    else
+    {
+        GestioneFile.ExportFile("exportFile", programmaEventi);
+        programmaEventi.StampaTuttiGliEventi();
+    }
+    
 }
 
 //METODI
