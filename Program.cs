@@ -17,8 +17,7 @@ while (WorkingProgram)
         case 1:
             Milestone1();
             break;
-        case 2:
-            
+        case 2:           
             Milestone3(programmaEventi);
             break;
         case 3:
@@ -118,6 +117,10 @@ void MilestoneBonus(ProgrammaEventi programmaEventi)
                 Console.WriteLine(programmaEventi.StampaTuttiGliEventi());
                 Console.Write("Inserisci una data per sapere che conferenze ci saranno (gg/mm/yyyy): ");
                 string? dateRicerca = Console.ReadLine();
+                if (!DateTime.TryParse(dateRicerca, out DateTime time))
+                {
+                    throw new csharpGenstioneEventiExeption("inserisci una data valida");
+                }
                 List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
                 Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
                 mainloop = false;
