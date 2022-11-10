@@ -59,11 +59,8 @@ void Milestone3()
     while (mainloop)
     {
         try
-        {
-            Evento evento = RegistraEvento(programmaEventi, i);
-            i++;
-
-            if (i == numeroEventi)
+        {            
+            if (i >= numeroEventi)
             {
                 Console.WriteLine();
                 Console.WriteLine("Il numero di evento nel programma è: {0}", numeroEventi);
@@ -78,6 +75,12 @@ void Milestone3()
                 List<Evento> RicercaEventi = programmaEventi.CercaEventoConData(Convert.ToDateTime(dateRicerca));
                 Console.WriteLine(programmaEventi.StampaEventiLista(RicercaEventi));
                 mainloop = false;
+            
+            }
+            else
+            {
+                Evento evento = RegistraEvento(programmaEventi, i);
+                i++;
             }
         }
         catch (Exception e)
@@ -98,11 +101,9 @@ void MilestoneBonus()
     while (mainloop)
     {
         try
-        {
-            Evento evento = RegistraConferenza(programmaEventi, i);
-            i++;
-
-            if (i == numeroEventi)
+        {   
+            
+            if (i >= numeroEventi)
             {
                 Console.WriteLine("--- BONUS -----");
                 Console.WriteLine();
@@ -117,6 +118,12 @@ void MilestoneBonus()
                 mainloop = false;
                 i++;
             }
+            else
+            {
+                Evento evento = RegistraConferenza(programmaEventi, i);
+                i++;
+            }
+
         }
         catch (Exception e)
         {
